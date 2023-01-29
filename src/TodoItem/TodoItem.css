@@ -1,0 +1,38 @@
+li {
+  position: relative;
+  padding: 20px;
+  background-color: rgb(240 248 255);
+  border-radius: 8px;
+  transition: all 0.5s;
+  box-shadow: 0px 0px 30px 4px rgba(0, 0, 0, 0.3);
+}
+li span {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  transition: all 0.3s;
+  font-weight: bold;
+}
+li span:hover {
+  color: red;
+  font-size: 20px;
+  cursor: pointer;
+}
+li svg {
+    margin-right: 32px;
+    transition: all .3s;
+}
+li svg:hover{
+  cursor: pointer;
+  
+  transform: scale(1.4);
+}
+.icon-active{
+  color: green;
+}
+.text-decoration{
+  text-decoration: line-through
+}
+li:hover{
+  transform: scale(1.1);
+}
