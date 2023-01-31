@@ -1,37 +1,65 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AppUI } from "../AppUI/index.jsx";
 import "./App.css";
 
 function useLocalStorage(itemName, initialValue) {
+  //utilizamos otros hooks
+  const [item, setItem] = useState(initialValue);
+
+  //Creamos estado inicial para nuestros errores y carga
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    //Simulamos un segundo de delay de carga
+    setTimeout(() => {
+      //Manejamos la tarea dentro de un try/catch por si ocurre algun error
+      try {
+        const localStorageItem = localStorage.getItem(itemName);
+        let parsedItem;
+        if (!localStorageItem) {
+          localStorage.setItem(itemName, JSON.stringify(initialValue));
+          parsedItem = initialValue;
+        } else {
+          parsedItem = JSON.parse(localStorageItem);
+        }
+        setItem(parsedItem);
+      } catch (error) {
+        setError(error);
+      } finally {
+        //tambien podemos utilizar la ultima parte del try/catch para terminar la carga
+        setLoading(false);
+      }
+    }, 1000);
+  });
+
   //Guardamos nuestro item en una constante
-  const localStorageItem = localStorage.getItem(itemName);
-  let parsedItem;
 
   //Utilizamos la logica que teniamos, pero ahora con las variables y parametros nuevos
-  if (!localStorageItem) {
-    localStorage.setItem(itemName, JSON.stringify(initialValue));
-    parsedItem = initialValue;
-  } else {
-    parsedItem = JSON.parse(localStorageItem);
-  }
-
-  //utilizamos otros hooks
-  const [item, setItem] = useState(parsedItem);
-
   //actualizamos la funcion para guaradar nuestro item con las nuevas variables y parametros
   const saveItem = (newItem) => {
-    const stringifiedItem = JSON.stringify(newItem);
-    localStorage.setItem(itemName, stringifiedItem);
-    setItem(newItem);
+    try {
+      const stringifiedItem = JSON.stringify(newItem);
+      localStorage.setItem(itemName, stringifiedItem);
+      setItem(newItem);
+    } catch (error) {
+      setError(error);
+    }
   };
 
-  //Regresamos los datos que necesitamos
-  return [item, saveItem];
+  //para tener un mejor control de los datos retornados, podemos regresarlos dentro de un objeto
+  return { item, saveItem, loading, error };
 }
 
 const App = () => {
-  //Desestructuramos los datos que retornamos de nuestro custom hook, y le pasamos argumentos que necesitamos (nombre y estado inicial)
-  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
+  //Desestructuramos los nuevos datos de nuestro custom hook
+  const {
+    item: todos,
+    saveItem: saveTodos,
+    loading,
+    errorm,
+  } = useLocalStorage("TODOS_V1", []);
+
   const [search, setSearch] = useState("");
 
   const todosCompleted = todos.filter((todo) => todo.completed === true).length;
