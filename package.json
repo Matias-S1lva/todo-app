@@ -1,6 +1,7 @@
 {
   "name": "todos",
   "private": true,
+  "homepage": "http://Matias-S1lva.github.io/todos",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
