@@ -1,13 +1,15 @@
-import React from 'react';
+import React from "react";
 
-const CreateTodoButton = () => {
-    const onClickButton = () => {
-        alert("aca se tiene que abrir el modal")
-    }
+const CreateTodoButton = ({ openModal, setOpenModal }) => {
+  const toogleModal = () => {
+    openModal
+    ?
+    setOpenModal(false)
+    :
+    setOpenModal(true)
+  };
 
-    return (
-        <button onClick={onClickButton}>+</button>
-    );
-}
+  return <button className="create-button" onClick={toogleModal}>+</button>;
+};
 
-export  {CreateTodoButton};
+export { CreateTodoButton };
