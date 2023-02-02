@@ -31,3 +31,9 @@
     background: aqua;
     color: white;
 }
+.buttons-form{
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    justify-content: space-evenly;
+}

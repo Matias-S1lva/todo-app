@@ -13,24 +13,26 @@ const TodoForm = () => {
   const onChange = (e) => {
     setNewTodoValue(e.target.value);
   };
-  const onCancel = () => {
-    setOpenModal(false);
+  const onReset = () => {
+    setNewTodoValue("");
   };
+
   return (
-    <form className="container-form">
+    <form onSubmit={onSaveTodo} className="container-form">
       <label>Ingresar tarea</label>
       <textarea
         value={newTodoValue}
         onChange={onChange}
         placeholder="ingresar texto"
       ></textarea>
-      <div></div>
-      <button type="submit" onSubmit={onSaveTodo} className="form-button">
-        Guardar
-      </button>
-      <button type="button" onClick={onCancel} className="form-button">
-        Cancelar
-      </button>
+      <div className="buttons-form">
+        <button type="submit" className="form-button">
+          Guardar
+        </button>
+        <button type="reset" onClick={onReset} className="form-button">
+          Cancelar
+        </button>
+      </div>
     </form>
   );
 };

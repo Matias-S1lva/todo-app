@@ -1,15 +1,18 @@
 import React from "react";
 
 const CreateTodoButton = ({ openModal, setOpenModal }) => {
-  const toogleModal = () => {
-    openModal
-    ?
-    setOpenModal(false)
-    :
-    setOpenModal(true)
+  const toggleModal = () => {
+    openModal ? setOpenModal(false) : setOpenModal(true);
   };
 
-  return <button className="create-button" onClick={toogleModal}>+</button>;
+  return (
+    <button
+      className={openModal ? "create-button delete-button" : "create-button"}
+      onClick={toggleModal}
+    >
+      +
+    </button>
+  );
 };
 
 export { CreateTodoButton };

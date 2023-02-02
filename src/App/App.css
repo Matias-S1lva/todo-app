@@ -33,5 +33,9 @@ h2{
   background-color: aqua;
   color: white;
   transform: scale(1.2) rotate(180deg);
-  
+}
+.delete-button:hover{
+  background-color: red;
+  color: white;
+  transform: scale(1.2) rotate(45deg);
 }
