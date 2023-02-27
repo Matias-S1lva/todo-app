@@ -6,8 +6,13 @@ import { TodoList } from "../TodoList";
 import { TodoSearch } from "../TodoSearch";
 import { Modal } from "../Modal";
 import { TodoForm } from "../TodoForm";
+import {Loader} from "./Loader";
 
 const AppUI = ({
+  totalTodos,
+  todosCompleted,
+  search,
+  setSearch,
   error,
   loading,
   searchedTodos,
@@ -15,23 +20,16 @@ const AppUI = ({
   deleteTodos,
   openModal,
   setOpenModal,
-  totalTodos,
-  todosCompleted,
-  search,
-  setSearch,
   addTodo,
 }) => {
   return (
     <div className="container">
       <TodoCounter totalTodos={totalTodos} todosCompleted={todosCompleted} />
-
       <TodoSearch search={search} setSearch={setSearch} />
-
       <TodoList>
         {error && <p>Hubo un error...</p>}
-        {loading && <p>Estamos cargando, no te persiga...</p>}
+        {loading && <Loader></Loader>}
         {!loading && !searchedTodos.length && <p>Crea tu primer TODO!</p>}
-
         {searchedTodos.map((todo) => (
           <TodoItem
             key={todo.text}
@@ -47,7 +45,6 @@ const AppUI = ({
           <TodoForm addTodo={addTodo} />
         </Modal>
       )}
-
       <CreateTodoButton openModal={openModal} setOpenModal={setOpenModal} />
     </div>
   );
