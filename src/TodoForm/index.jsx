@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import { TodoContext } from "../TodoContext";
+
 import "./TodoForm.css";
 
-const TodoForm = () => {
+const TodoForm = ({addTodo}) => {
   const [newTodoValue, setNewTodoValue] = useState("");
-  const { addTodo } = useContext(TodoContext);
+
 
   const onSaveTodo = (e) => {
     e.preventDefault();
